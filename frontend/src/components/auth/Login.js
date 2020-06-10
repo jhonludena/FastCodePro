@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import classnames from "classnames";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 class Login extends Component {
@@ -11,8 +10,7 @@ class Login extends Component {
     super();
     this.state = {
       email: "",
-      password: "",
-      errors: {}
+      password: ""
     };
   }
 
@@ -26,12 +24,6 @@ class Login extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
-    }
-
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
     }
   }
 
@@ -51,7 +43,6 @@ class Login extends Component {
   };
 
   render() {
-    const { errors } = this.state;
 
     return (
       <Container>
@@ -76,34 +67,20 @@ class Login extends Component {
                 <Form.Control
                   onChange={this.onChange}
                   value={this.state.email}
-                  error={errors.email}
                   id="email"
                   type="email"
                   placeholder="Ingrese correo electrónico"
-                  className={classnames("", {
-                    invalid: errors.email || errors.emailnotfound
-                  })} />
-                <span className="red-text">
-                  {errors.email}
-                  {errors.emailnotfound}
-                </span>
+                  />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Contraseña</Form.Label>
                 <Form.Control
                   onChange={this.onChange}
                   value={this.state.password}
-                  error={errors.password}
                   id="password"
                   type="password"
                   placeholder="Contraseña"
-                  className={classnames("", {
-                    invalid: errors.password || errors.passwordincorrect
-                  })} />
-                <span className="red-text">
-                  {errors.password}
-                  {errors.passwordincorrect}
-                </span>
+                  />
               </Form.Group>
               <Button variant="primary" type="submit">
                 Iniciar sesión
@@ -118,13 +95,11 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
+  auth: state.auth
 });
 
 export default connect(
