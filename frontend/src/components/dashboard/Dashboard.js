@@ -2,56 +2,71 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import {
+  getCategories
+} from "../../actions/categoryActions";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 class Dashboard extends Component {
-  onLogoutClick = e => {
+  componentDidMount() {
+    this.props.getCategories();
+  }
+
+  onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
 
   render() {
     const { user } = this.props.auth;
+    const { categories } = this.props.category;
 
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <div className="row">
-          <div className="landing-copy col s12 center-align">
+      <Container fluid="md" style={{ height: "75vh" }}>
+        <Row>
+          <Col sm={12} className="justify-content-md-center">
+            <h1>BIENVENIDO..!</h1>
             <h4>
-              <b>Hey there,</b> {user.nombres}
+              <b>Hola,</b> {user.nombres}
               <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
+                <span style={{ fontFamily: "monospace" }}>SISTEMA WEB DE </span>
+                APRENDIZAJE{" "}
+                <span style={{ fontFamily: "monospace" }}>VIRTUAL </span>
+                👏
               </p>
             </h4>
-            <button
+            {
+              console.log(categories)
+            }
+            <Button
+              variant="light"
               style={{
                 width: "150px",
                 borderRadius: "3px",
                 letterSpacing: "1.5px",
-                marginTop: "1rem"
+                marginTop: "1rem",
               }}
               onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
               Logout
-            </button>
-          </div>
-        </div>
-      </div>
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
 
 Dashboard.propTypes = {
+  getCategories: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  category: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  category: state.category
 });
 
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(Dashboard);
+export default connect(mapStateToProps, { getCategories, logoutUser })(Dashboard);
