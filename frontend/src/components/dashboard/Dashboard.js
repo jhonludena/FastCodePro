@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import {
-  getCategories
-} from "../../actions/categoryActions";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
+import Category from "../dashboard/Category";
+
 class Dashboard extends Component {
+  state = {
+    controller: "",
+  };
+
   componentDidMount() {
-    this.props.getCategories();
+    //const { user } = this.props.auth;
   }
 
   onLogoutClick = (e) => {
@@ -19,7 +22,7 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
-    const { categories } = this.props.category;
+    //const { categories } = this.props.category;
 
     return (
       <Container fluid="md" style={{ height: "75vh" }}>
@@ -35,38 +38,35 @@ class Dashboard extends Component {
                 👏
               </p>
             </h4>
-            {
-              console.log(categories)
-            }
-            <Button
-              variant="light"
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem",
-              }}
-              onClick={this.onLogoutClick}
-            >
-              Logout
-            </Button>
+          </Col>
+          <Col>
+            <Category />
           </Col>
         </Row>
+        <Button
+          variant="light"
+          style={{
+            width: "150px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            marginTop: "1rem",
+          }}
+          onClick={this.onLogoutClick}
+        >
+          Logout
+        </Button>
       </Container>
     );
   }
 }
 
 Dashboard.propTypes = {
-  getCategories: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  category: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  category: state.category
 });
 
-export default connect(mapStateToProps, { getCategories, logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(Dashboard);
