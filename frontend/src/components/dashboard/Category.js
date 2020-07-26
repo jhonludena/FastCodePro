@@ -27,15 +27,15 @@ class Category extends Component {
                 <Card.Header>
                   {(Controller = category.idCategoria)}
                   <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                    <h5>
-                      {category.descripcionCategoria}
+                    <h4>
                       <Image
                         src={`data:image/png[jpg];base64, ${category.logo_categoria}`}
                         roundedCircle
                         width="80"
                         height="80"
                       />
-                    </h5>
+                      {category.descripcionCategoria}
+                    </h4>
                     {(Ban = true)}
                   </Accordion.Toggle>
                 </Card.Header>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import Information from '../dashboard/Information'
 
 class Landing extends Component {
   render() {
@@ -32,6 +33,9 @@ class Landing extends Component {
               className="btn btn-primary">
               Iniciar Sesión
             </Link>
+          </Col>
+          <Col>
+            <Information/>
           </Col>
         </Row>
       </Container>

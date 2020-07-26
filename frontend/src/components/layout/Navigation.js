@@ -15,8 +15,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "../../actions/profileActions";
+import { getAllCategories } from "../../actions/categoryActions";
 
 class Navigation extends Component {
+  componentDidMount() {
+    this.props.getAllCategories();
+  }
+
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.clearCurrentProfile();
@@ -25,6 +30,8 @@ class Navigation extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+    const { categories } = this.props.category;
+    let { Controller, Ban } = this.props;
 
     const authLinks = (
       <Container>
@@ -58,21 +65,34 @@ class Navigation extends Component {
             </Form>
           </Col>
         </Row>
-        <Nav className="ml-auto">
+        <Nav variant="pills" className="ml-auto">
           <Nav.Link href="#home">Cursos</Nav.Link>
           <Nav.Link href="#link">Blog</Nav.Link>
           <Nav.Link href="#home">Agenda</Nav.Link>
           <Nav.Link href="#link">Contactanos</Nav.Link>
-          <NavDropdown title="Iniciar mi plan" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
+          <NavDropdown title="Certificaciones">
+            {categories.map((category, index) =>
+                category.idCategoria !== Controller && (
+                  <NavDropdown
+                    title={category.descripcionCategoria}
+                    key={index}
+                    href=""
+                  >
+                    {(Controller = category.idCategoria)}
+                    {(Ban = true)}
+                    {Ban === true &&
+                      categories.map(
+                        (categ, index) =>
+                          Controller === categ.idCategoria && (
+                            <NavDropdown.Item key={index} href="">
+                              {categ.nombreCurso}
+                            </NavDropdown.Item>
+                          )
+                      )}
+                    {(Ban = false)}
+                  </NavDropdown>
+                )
+            )}
           </NavDropdown>
         </Nav>
         <Form inline>
@@ -110,14 +130,19 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
+  getAllCategories: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  category: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  category: state.category,
 });
 
-export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
-  Navigation
-);
+export default connect(mapStateToProps, {
+  logoutUser,
+  clearCurrentProfile,
+  getAllCategories,
+})(Navigation);
