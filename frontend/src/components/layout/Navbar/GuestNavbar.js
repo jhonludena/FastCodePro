@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   Container,
-  Navbar,
   Nav,
   NavDropdown,
   Form,
@@ -13,45 +12,18 @@ import {
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
-import { clearCurrentProfile } from "../../actions/profileActions";
-import { getAllCategories } from "../../actions/categoryActions";
+import { getAllCategories } from "../../../actions/categoryActions";
 
-class Navigation extends Component {
+class GuestNavbar extends Component {
   componentDidMount() {
     this.props.getAllCategories();
   }
 
-  onLogoutClick = (e) => {
-    e.preventDefault();
-    this.props.clearCurrentProfile();
-    this.props.logoutUser();
-  };
-
   render() {
-    const { isAuthenticated } = this.props.auth;
     const { categories } = this.props.category;
     let { Controller, Ban } = this.props;
 
-    const authLinks = (
-      <Container>
-        <Nav className="mr-auto">
-          <Nav.Link href="#home">Perfil</Nav.Link>
-          <Nav.Link href="#link">Categorias</Nav.Link>
-        </Nav>
-        <Form inline>
-          <Link
-            to="/login"
-            className="btn btn-outline-primary"
-            onClick={this.onLogoutClick}
-          >
-            Cerrar Sesión
-          </Link>
-        </Form>
-      </Container>
-    );
-
-    const guestLinks = (
+    return (
       <Container>
         <Row>
           <Col md="auto">
@@ -71,7 +43,8 @@ class Navigation extends Component {
           <Nav.Link href="#home">Agenda</Nav.Link>
           <Nav.Link href="#link">Contactanos</Nav.Link>
           <NavDropdown title="Certificaciones">
-            {categories.map((category, index) =>
+            {categories.map(
+              (category, index) =>
                 category.idCategoria !== Controller && (
                   <NavDropdown
                     title={category.descripcionCategoria}
@@ -111,38 +84,18 @@ class Navigation extends Component {
         </Form>
       </Container>
     );
-
-    return (
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand>
-          <Link to="/" style={{ color: "inherit", textDecoration: "inherit" }}>
-            <i className="material-icons">airplay</i>
-            Sushi Rolls
-          </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          {isAuthenticated ? authLinks : guestLinks}
-        </Navbar.Collapse>
-      </Navbar>
-    );
   }
 }
 
-Navigation.propTypes = {
+GuestNavbar.propTypes = {
   getAllCategories: PropTypes.func.isRequired,
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   category: state.category,
 });
 
 export default connect(mapStateToProps, {
-  logoutUser,
-  clearCurrentProfile,
   getAllCategories,
-})(Navigation);
+})(GuestNavbar);

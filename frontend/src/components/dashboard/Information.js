@@ -60,67 +60,60 @@ class Information extends Component {
         </Col>
         <Form noValidate onSubmit={this.onSubmit}>
           <Form.Group>
-            <Form.Label>Ingrese sus nombres</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.firstName}
               id="firstName"
               type="text"
-              placeholder="Ingrese nombre completo"
+              placeholder="Escriba sus nombres completos"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Ingrese sus apellidos</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.lastName}
               id="lastName"
               type="text"
-              placeholder="Ingrese apellido completo"
+              placeholder="Escriba sus apellidos completos"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Ingrese numero telefonico</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.phone}
               id="phone"
               type="number"
-              placeholder="Ingrese su numero de telefono"
+              placeholder="Ingrese su número de teléfono"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Dirección de correo electrónico</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.email}
               id="email"
               type="email"
-              placeholder="Ingrese correo electrónico"
+              placeholder="Ingrese su correo electrónico"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Ingrese su pais de origen</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.country}
               id="country"
               type="text"
-              placeholder="Ingrese su pais de nacionalidad"
+              placeholder="Escriba su país de nacionalidad"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Ingrese su provincia de origen</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.provincia}
               id="provincia"
               type="text"
-              placeholder="Ingrese su provincia"
+              placeholder="Escriba su provincia de origen"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Ingrese su edad</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.age}
@@ -130,13 +123,12 @@ class Information extends Component {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Ingrese programa de interes</Form.Label>
             <Form.Control
               onChange={this.onChange}
               value={this.state.interes}
               id="interes"
               type="text"
-              placeholder="Ingrese el programa que le interesa"
+              placeholder="Ingrese su programa de interes"
             />
           </Form.Group>
           <Button variant="primary" type="submit">
