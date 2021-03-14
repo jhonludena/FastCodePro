@@ -10,10 +10,13 @@ import store from "./store";
 import Navigation from "./components/layout/Navbar/Navigation";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
-import Login from "./components/auth/Login"
+import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
-
+import DashboardSuperAdmin from "./components/dashboard/DashboardSuperAdmin";
+import DashboardAdmin from "./components/dashboard/DashboardAdmin";
+import DashboardSupervisor from "./components/dashboard/DashboardSupervisor";
+import DashboardClient from "./components/dashboard/DashboardClient";
+import UsersAdmin from "./components/dashboard/UsersAdmin";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -40,12 +43,36 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Navigation/>
+            <Navigation />
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute
+                exact
+                path="/dashboard/super-administrator"
+                component={DashboardSuperAdmin}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/super-administrator/users-administration"
+                component={UsersAdmin}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/administrator"
+                component={DashboardAdmin}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/supervisor"
+                component={DashboardSupervisor}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/client"
+                component={DashboardClient}
+              />
             </Switch>
           </div>
         </Router>

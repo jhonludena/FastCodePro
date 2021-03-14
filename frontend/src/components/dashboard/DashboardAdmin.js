@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-import Category from "../dashboard/Category";
+import Category from "./Category";
 
-class Dashboard extends Component {
+class DashboardAdmin extends Component {
   state = {
     controller: "",
   };
@@ -60,7 +60,7 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {
+DashboardAdmin.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(DashboardAdmin);

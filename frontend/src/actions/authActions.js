@@ -20,13 +20,13 @@ export const registerUser = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
-    .get(`/services_fastcode/webapi/usuario_service/${userData.email}/${userData.password}`)
+    .get(`/services_fastcode/webapi/login_service/${userData.email}/${userData.password}`)
     .then(res => {
       // Save to localStorage
       const user = res.data
       // Set token to localStorage
       //const { token } = res.data;
-      console.log(user)
+      //console.log(user)
       localStorage.setItem("jwtToken", user);
       // Set token to Auth header
       setAuthToken(user);

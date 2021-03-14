@@ -3,62 +3,82 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
   }
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.userRol(this.props.auth.user.rol);
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated !== prevProps.auth.isAuthenticated) {
+      this.userRol(this.props.auth.user.rol);
     }
   }
 
-  onChange = e => {
+  //Esta función recibe el rol de usuario y redirecciona a la interfaz correspondiente
+  userRol = (rol) => {
+    switch (rol) {
+      case "Super Administrador":
+        return this.props.history.push("/dashboard/super-administrator");
+      case "Administrador":
+        return this.props.history.push("/dashboard/administrator");
+      case "Supervisor":
+        return this.props.history.push("/dashboard/supervisor");
+      case "Cliente":
+        return this.props.history.push("/dashboard/client");
+      default:
+        return null;
+    }
+  };
+
+  onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const userData = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
 
     this.props.loginUser(userData);
   };
 
   render() {
-
     return (
       <Container>
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <Link to="/"
-              style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Link
+              to="/"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
               <i className="material-icons left">keyboard_backspace</i>
-                Volver a inicio
+              Volver a inicio
             </Link>
             <Col>
               <h4>
                 <b>Inicie sesión</b> a continuación
               </h4>
               <p>
-                ¿No tienes una cuenta? <Link to="/register" style={{ textDecoration: 'inherit' }}>Regístrate</Link>
+                ¿No tienes una cuenta?{" "}
+                <Link to="/register" style={{ textDecoration: "inherit" }}>
+                  Regístrate
+                </Link>
               </p>
             </Col>
             <Form noValidate onSubmit={this.onSubmit}>
@@ -70,7 +90,7 @@ class Login extends Component {
                   id="email"
                   type="email"
                   placeholder="Ingrese correo electrónico"
-                  />
+                />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Contraseña</Form.Label>
@@ -80,7 +100,7 @@ class Login extends Component {
                   id="password"
                   type="password"
                   placeholder="Contraseña"
-                  />
+                />
               </Form.Group>
               <Button variant="primary" type="submit">
                 Iniciar sesión
@@ -95,14 +115,11 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(Login);
+export default connect(mapStateToProps, { loginUser })(Login);

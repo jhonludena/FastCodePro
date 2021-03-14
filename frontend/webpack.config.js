@@ -17,7 +17,7 @@ module.exports = {
     port: 9000,
     open: true,
     proxy: {
-      "/": "http://192.168.1.2:8087",
+      "/": "http://192.168.1.5:8080",
     },
   },
   performance: {

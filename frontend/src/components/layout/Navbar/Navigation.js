@@ -3,10 +3,11 @@ import { Navbar, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import path from 'path';
 
 import AuthNavbar from "./AuthNavbar";
 import GuestNavbar from "./GuestNavbar";
+
+import Logo from '../../../static/img/logo_codeway5.png';
 
 class Navigation extends Component {
   componentDidMount() {}
@@ -16,14 +17,14 @@ class Navigation extends Component {
 
     const authLinks = <AuthNavbar />;
 
-    const guestLinks = <GuestNavbar />;
+    const guestLinks = <GuestNavbar/>;
 
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="dark" variant="dark">
         <Navbar.Brand>
           <Link to="/" style={{ color: "inherit", textDecoration: "inherit" }}>
-            <Image src="http://www.pngall.com/wp-content/uploads/2016/05/Laptop-PNG-Image.png" width="50" height= "50" rounded />
-            <b>CodeWay</b>
+            <Image src={ Logo } width="50" height= "50" rounded />
+            <b>FastCode</b>
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

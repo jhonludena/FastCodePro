@@ -9,7 +9,6 @@ class Category extends Component {
 
   componentDidMount() {
     const { user } = this.props.auth;
-    console.log(`prueba de id: ${user.idUsuario}`);
     this.props.getCategories(user.idUsuario);
   }
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Nav, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
@@ -21,11 +21,12 @@ class AuthNavbar extends Component {
     return (
       <Container>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Perfil</Nav.Link>
-          <Nav.Link href="#link">Categorias</Nav.Link>
+          <Link to="/dashboard/super-administrator/users-administration">
+            Usuario
+          </Link>
         </Nav>
         <Form inline>
-          <b>{user.nombres}</b>
+          <b>{user.nombre}</b>
           <Link
             to="/login"
             className="btn btn-outline-primary"
@@ -51,4 +52,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   logoutUser,
   clearCurrentProfile,
-})(AuthNavbar);
+})(withRouter(AuthNavbar));
