@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Nav } from "react-bootstrap";
 import { connect } from "react-redux";
-import CategoryNavDropdown from "./CategoryNavDropdown";
+//import CategoryNavDropdown from "./CategoryNavDropdown";
 import Search from "./Search";
 import LogButton from "./LogButton";
 
@@ -17,7 +17,7 @@ class GuestNavbar extends Component {
           <Nav.Link href="#link">Blog</Nav.Link>
           <Nav.Link href="#home">Agenda</Nav.Link>
           <Nav.Link href="#link">Contactanos</Nav.Link>
-          <CategoryNavDropdown />
+          {/*<CategoryNavDropdown />*/}
         </Nav>
         <LogButton />
       </Container>

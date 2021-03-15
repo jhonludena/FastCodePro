@@ -12,11 +12,13 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import DashboardSuperAdmin from "./components/dashboard/DashboardSuperAdmin";
-import DashboardAdmin from "./components/dashboard/DashboardAdmin";
-import DashboardSupervisor from "./components/dashboard/DashboardSupervisor";
-import DashboardClient from "./components/dashboard/DashboardClient";
-import UsersAdmin from "./components/dashboard/UsersAdmin";
+import DashboardSuperAdmin from "./components/dashboard/Principal/DashboardSuperAdmin";
+import DashboardAdmin from "./components/dashboard/Principal/DashboardAdmin";
+import DashboardSupervisor from "./components/dashboard/Principal/DashboardSupervisor";
+import DashboardClient from "./components/dashboard/Principal/DashboardClient";
+import UsersAdmin from "./components/dashboard/User/UsersAdmin";
+import UserRegister from "./components/dashboard/User/UserRegister";
+import RolesAdmin from "./components/dashboard/Role/RolesAdmin";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -57,6 +59,21 @@ class App extends Component {
                 exact
                 path="/dashboard/super-administrator/users-administration"
                 component={UsersAdmin}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/super-administrator/users-administration/user-save"
+                component={UserRegister}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/super-administrator/users-administration/user-edit"
+                component={UserRegister}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/super-administrator/roles-administration"
+                component={RolesAdmin}
               />
               <PrivateRoute
                 exact

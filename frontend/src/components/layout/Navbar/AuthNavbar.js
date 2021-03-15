@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Nav, Form } from "react-bootstrap";
+import { Container, Nav, Form, Col } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -21,19 +21,32 @@ class AuthNavbar extends Component {
     return (
       <Container>
         <Nav className="mr-auto">
-          <Link to="/dashboard/super-administrator/users-administration">
-            Usuario
+          <Link
+            to="/dashboard/super-administrator/users-administration"
+            style={{ color: "gray", textDecoration: "inherit" }}
+          >
+            <b>Usuario</b>
+          </Link>
+          <Link
+            to="/dashboard/super-administrator/roles-administration"
+            style={{ color: "gray", textDecoration: "inherit" }}
+          >
+            <b>Rol</b>
           </Link>
         </Nav>
         <Form inline>
-          <b>{user.nombre}</b>
-          <Link
-            to="/login"
-            className="btn btn-outline-primary"
-            onClick={this.onLogoutClick}
-          >
-            Cerrar Sesión
-          </Link>
+          <Col md="auto">
+            <b style={{ color: "white" }}>{user.nombre}</b>
+          </Col>
+          <Col md="auto">
+            <Link
+              to="/login"
+              className="btn btn-outline-primary"
+              onClick={this.onLogoutClick}
+            >
+              Cerrar Sesión
+            </Link>
+          </Col>
         </Form>
       </Container>
     );

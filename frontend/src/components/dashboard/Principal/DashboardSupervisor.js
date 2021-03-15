@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser } from "../../../actions/authActions";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-import Category from "./Category";
+import Category from "../Category";
 
-class DashboardClient extends Component {
+class DashboardSupervisor extends Component {
   state = {
     controller: "",
   };
@@ -60,7 +60,7 @@ class DashboardClient extends Component {
   }
 }
 
-DashboardClient.propTypes = {
+DashboardSupervisor.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(DashboardClient);
+export default connect(mapStateToProps, { logoutUser })(DashboardSupervisor);

@@ -6,8 +6,9 @@ import {
   GET_ALL_REGISTERS,
   GET_LIST_USERS_BY_ROLE,
   SAVE_USER_REGISTER,
-  SAVE_SELECTED_ITEM,
+  EDIT_USER_REGISTER,
   GET_USER,
+  GET_ACTION_TO_DO,
   DELETE_USER_BY_ID,
 } from "./types.js";
 
@@ -56,9 +57,9 @@ export const getListUsersByRole = (role) => (dispatch) => {
 };
 
 //Esta acción guarda los datos del usuario que se está registrando
-export const saveUserRegister = (Data) => (dispatch) => {
+export const saveUserRegister = (data) => (dispatch) => {
   axios
-    .post(`/services_fastcode/webapi/usuario_service`, Data)
+    .post(`/services_fastcode/webapi/usuario_service`, data)
     .then((res) =>
       dispatch({
         type: SAVE_USER_REGISTER,
@@ -68,12 +69,17 @@ export const saveUserRegister = (Data) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-//Recibe el id del usuario y almacena dicho valor en selectedItem ubicado en el store
-export const saveSelectedItem = (userId) => (dispatch) => {
-  dispatch({
-    type: SAVE_SELECTED_ITEM,
-    payload: userId,
-  });
+//Esta acción guarda los datos del usuario que se está registrando
+export const editUserRegister = (data) => (dispatch) => {
+  axios
+    .put(`/services_fastcode/webapi/usuario_service`, data)
+    .then((res) =>
+      dispatch({
+        type: EDIT_USER_REGISTER,
+        payload: res.data,
+      })
+    )
+    .catch((err) => console.log(err));
 };
 
 //Recibe el id de usuario y mediante este servicio le paso dicho id para que me retorne el usuario correspondiente y almacenarlo en el store
@@ -96,4 +102,11 @@ export const deleteUserById = (userData) => (dispatch) => {
       })
     )
     .catch((err) => console.log(err));
+};
+
+export const getActionToDo = (action) => (dispatch) => {
+  dispatch({
+    type: GET_ACTION_TO_DO,
+    payload: action,
+  });
 };

@@ -5,12 +5,14 @@ import { connect } from "react-redux";
 
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
-import { saveUserRegister } from "../../actions/userActions";
-import { getUser } from "../../actions/userActions";
-import { getActionToDo } from "../../actions/userActions";
+import { saveUserRegister } from "../../../actions/userActions";
+import { editUserRegister } from "../../../actions/userActions";
+import { getUser } from "../../../actions/userActions";
+import { getActionToDo } from "../../../actions/userActions";
 
-class Register extends Component {
+class UserRegister extends Component {
   state = {
+    userId: "",
     firstName: "",
     lastName1: "",
     lastName2: "",
@@ -18,22 +20,24 @@ class Register extends Component {
     user: "",
     password: "",
     userComments: "",
+    userState: "",
   };
 
   componentDidMount() {}
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { actionToDo } = this.props.user;
     const { user } = this.props.user;
-    if(actionToDo !== false){
+    if (user !== prevProps.user.user) {
       this.changeState(user);
-      this.props.getActionToDo(false);
+      //this.props.getActionToDo(false);
     }
   }
 
   //Esta función recibe los datos del ususario y actualiza el state con esos datos
   changeState = (user) => {
     this.setState({
+      userId: user.idUsuario,
       firstName: user.nombre,
       lastName1: user.apellidoUno,
       lastName2: user.apellidoDos,
@@ -41,6 +45,7 @@ class Register extends Component {
       user: user.usuario,
       password: user.contrasenia,
       userComments: user.observacionesUsuario,
+      userState: user.estado,
     });
   };
 
@@ -48,10 +53,14 @@ class Register extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  handleClickClose = () => {
+    this.props.getActionToDo(false);
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
 
-    const Data = {
+    const dataSave = {
       nombre: this.state.firstName,
       apellidoUno: this.state.lastName1,
       apellidoDos: this.state.lastName2,
@@ -61,7 +70,24 @@ class Register extends Component {
       observacionesUsuario: this.state.userComments,
     };
 
-    this.props.saveUserRegister(Data);
+    const dataEdit = {
+      nombre: this.state.firstName,
+      apellidoUno: this.state.lastName1,
+      apellidoDos: this.state.lastName2,
+      email: this.state.email,
+      usuario: this.state.user,
+      contrasenia: this.state.password,
+      observacionesUsuario: this.state.userComments,
+      estatusUsuario: this.state.userState,
+      idUsuario: this.state.userId,
+    };
+
+    const { actionToDo } = this.props.user;
+    if (actionToDo === false) {
+      this.props.saveUserRegister(dataSave);
+    } else {
+      this.props.editUserRegister(dataEdit);
+    }
 
     this.clearState();
   };
@@ -172,8 +198,15 @@ class Register extends Component {
                   placeholder="Ingrese observaciones de usuario"
                 />
               </Form.Group>
+              <Link
+                to="/dashboard/super-administrator/users-administration"
+                className="btn btn-outline-primary"
+                onClick={() => this.handleClickClose()}
+              >
+                Cerrar
+              </Link>{" "}
               <Button variant="primary" type="submit">
-                Guardar
+                Guardar cambios
               </Button>
             </Form>
           </Col>
@@ -183,7 +216,7 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
+UserRegister.propTypes = {
   saveUserRegister: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
@@ -194,6 +227,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   saveUserRegister,
+  editUserRegister,
   getUser,
   getActionToDo,
-})(withRouter(Register));
+})(withRouter(UserRegister));

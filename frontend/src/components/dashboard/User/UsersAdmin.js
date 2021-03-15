@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 
 import ListUsersByRole from "./ListUsersByRole";
-import Register from "../auth/Register";
 
 class UsersAdmin extends Component {
   state = {};
@@ -13,16 +12,15 @@ class UsersAdmin extends Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col>
-            <ListUsersByRole />
-          </Col>
-          <Col>
-            <Register />
-          </Col>
-        </Row>
-      </Container>
+      <>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <ListUsersByRole />
+            </Col>
+          </Row>
+        </Container>
+      </>
     );
   }
 }

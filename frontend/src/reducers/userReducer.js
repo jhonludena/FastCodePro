@@ -4,18 +4,19 @@ import {
   GET_ALL_REGISTERS,
   GET_LIST_USERS_BY_ROLE,
   SAVE_USER_REGISTER,
-  SAVE_SELECTED_ITEM,
   GET_USER,
   DELETE_USER_BY_ID,
+  GET_ACTION_TO_DO,
+  EDIT_USER_REGISTER,
 } from "../actions/types.js";
 
 const isEmpty = require("is-empty");
 
 const initialState = {
   verification: false,
+  actionToDo: false,
   registers: [],
   listUsersByRole: [],
-  selectedItem: 0,
   user: {},
 };
 
@@ -46,10 +47,10 @@ export default function (state = initialState, action) {
         ...state,
         verification: !isEmpty(action.payload),
       };
-    case SAVE_SELECTED_ITEM:
+    case EDIT_USER_REGISTER:
       return {
         ...state,
-        selectedItem: action.payload,
+        verification: !isEmpty(action.payload),
       };
     case GET_USER:
       return {
@@ -60,6 +61,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         verification: !isEmpty(action.payload),
+      };
+    case GET_ACTION_TO_DO:
+      return {
+        ...state,
+        actionToDo: action.payload,
       };
     default:
       return state;

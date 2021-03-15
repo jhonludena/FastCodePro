@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { withRouter } from "react-router-dom";
+import { logoutUser } from "../../../actions/authActions";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 class IndexSuperAdmin extends Component {
@@ -65,4 +66,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(IndexSuperAdmin);
+export default connect(mapStateToProps, { logoutUser })(
+  withRouter(IndexSuperAdmin)
+);

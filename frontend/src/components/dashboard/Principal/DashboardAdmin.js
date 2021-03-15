@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser } from "../../../actions/authActions";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-import Category from "./Category";
+import Category from "../Category";
 
 class DashboardAdmin extends Component {
   state = {
